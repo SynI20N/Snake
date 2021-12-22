@@ -1,0 +1,479 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "/home/preseed/Cpp",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2021-12-14 16:15:27",
+            "filesum": 16,
+            "codesum": 549,
+            "commentsum": 10,
+            "blanksum": 86,
+            "statistics": {
+                ".cpp": {
+                    "code": 433,
+                    "comment": 10,
+                    "blank": 63
+                },
+                ".hpp": {
+                    "code": 101,
+                    "comment": 0,
+                    "blank": 17
+                },
+                ".glsl": {
+                    "code": 15,
+                    "comment": 0,
+                    "blank": 6
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 8,
+                    "code": 53,
+                    "comment": 0,
+                    "filename": "Buffer.cpp"
+                },
+                {
+                    "blank": 3,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "Buffer.hpp"
+                },
+                {
+                    "blank": 19,
+                    "code": 84,
+                    "comment": 0,
+                    "filename": "Draw.cpp"
+                },
+                {
+                    "blank": 3,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "Draw.hpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 22,
+                    "comment": 1,
+                    "filename": "Legacy/FsmStack.cpp"
+                },
+                {
+                    "blank": 5,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "Legacy/FsmStack.hpp"
+                },
+                {
+                    "blank": 13,
+                    "code": 71,
+                    "comment": 9,
+                    "filename": "LoadShader.cpp"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "LoadShader.hpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "Main.cpp"
+                },
+                {
+                    "filename": "Main.out",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 3,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "Shaders/Fragment.glsl"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "Shaders/Vertex.glsl"
+                },
+                {
+                    "blank": 5,
+                    "code": 96,
+                    "comment": 0,
+                    "filename": "Simulation.cpp"
+                },
+                {
+                    "blank": 2,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "Simulation.hpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "Square.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "Square.hpp"
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2021-12-15 09:56:53",
+            "filesum": 14,
+            "codesum": 514,
+            "commentsum": 9,
+            "blanksum": 77,
+            "statistics": {
+                ".cpp": {
+                    "code": 418,
+                    "comment": 9,
+                    "blank": 59
+                },
+                ".hpp": {
+                    "code": 81,
+                    "comment": 0,
+                    "blank": 12
+                },
+                ".glsl": {
+                    "code": 15,
+                    "comment": 0,
+                    "blank": 6
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 9,
+                    "code": 58,
+                    "comment": 0,
+                    "filename": "Buffer.cpp"
+                },
+                {
+                    "blank": 3,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "Buffer.hpp"
+                },
+                {
+                    "blank": 19,
+                    "code": 84,
+                    "comment": 0,
+                    "filename": "Draw.cpp"
+                },
+                {
+                    "blank": 3,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "Draw.hpp"
+                },
+                {
+                    "blank": 13,
+                    "code": 71,
+                    "comment": 9,
+                    "filename": "LoadShader.cpp"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "LoadShader.hpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "Main.cpp"
+                },
+                {
+                    "filename": "Main.out",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 3,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "Shaders/Fragment.glsl"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "Shaders/Vertex.glsl"
+                },
+                {
+                    "blank": 7,
+                    "code": 98,
+                    "comment": 0,
+                    "filename": "Simulation.cpp"
+                },
+                {
+                    "blank": 2,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "Simulation.hpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "Square.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "Square.hpp"
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2021-12-15 10:17:42",
+            "filesum": 12,
+            "codesum": 508,
+            "commentsum": 0,
+            "blanksum": 77,
+            "statistics": {
+                ".cpp": {
+                    "code": 413,
+                    "comment": 0,
+                    "blank": 59
+                },
+                ".hpp": {
+                    "code": 80,
+                    "comment": 0,
+                    "blank": 12
+                },
+                ".glsl": {
+                    "code": 15,
+                    "comment": 0,
+                    "blank": 6
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 9,
+                    "code": 58,
+                    "comment": 0,
+                    "filename": "Buffer.cpp"
+                },
+                {
+                    "blank": 3,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "Buffer.hpp"
+                },
+                {
+                    "blank": 32,
+                    "code": 151,
+                    "comment": 0,
+                    "filename": "Draw.cpp"
+                },
+                {
+                    "blank": 3,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "Draw.hpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "Main.cpp"
+                },
+                {
+                    "filename": "Main.out",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 3,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "Shaders/Fragment.glsl"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "Shaders/Vertex.glsl"
+                },
+                {
+                    "blank": 7,
+                    "code": 98,
+                    "comment": 0,
+                    "filename": "Simulation.cpp"
+                },
+                {
+                    "blank": 2,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "Simulation.hpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "Square.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "Square.hpp"
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2021-12-21 12:15:23",
+            "filesum": 18,
+            "codesum": 634,
+            "commentsum": 0,
+            "blanksum": 113,
+            "statistics": {
+                ".cpp": {
+                    "code": 474,
+                    "comment": 0,
+                    "blank": 85
+                },
+                ".hpp": {
+                    "code": 136,
+                    "comment": 0,
+                    "blank": 21
+                },
+                ".glsl": {
+                    "code": 24,
+                    "comment": 0,
+                    "blank": 7
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 9,
+                    "code": 58,
+                    "comment": 0,
+                    "filename": "Buffer.cpp"
+                },
+                {
+                    "blank": 3,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "Buffer.hpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "BufferAssembler.cpp"
+                },
+                {
+                    "blank": 2,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "BufferAssembler.hpp"
+                },
+                {
+                    "blank": 32,
+                    "code": 155,
+                    "comment": 0,
+                    "filename": "Draw.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "Draw.hpp"
+                },
+                {
+                    "blank": 8,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "Food.cpp"
+                },
+                {
+                    "blank": 2,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "Food.hpp"
+                },
+                {
+                    "blank": 6,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "Main.cpp"
+                },
+                {
+                    "filename": "Main.out",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 4,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "Shaders/Fragment.glsl"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "Shaders/Vertex.glsl"
+                },
+                {
+                    "blank": 8,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "Simulation.cpp"
+                },
+                {
+                    "blank": 2,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "Simulation.hpp"
+                },
+                {
+                    "blank": 11,
+                    "code": 60,
+                    "comment": 0,
+                    "filename": "Snake.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "Snake.hpp"
+                },
+                {
+                    "blank": 7,
+                    "code": 72,
+                    "comment": 0,
+                    "filename": "Square.cpp"
+                },
+                {
+                    "blank": 4,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "Square.hpp"
+                }
+            ]
+        }
+    ]
+}
