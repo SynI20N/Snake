@@ -9,7 +9,7 @@
                 "-g",
                 "${fileDirname}/**.cpp",
                 "-o",
-                "Main.out",
+                "${fileDirname}/bin/linux/Main.out",
                 "-lglfw",
                 "-lGLEW",
                 "-lGL"
