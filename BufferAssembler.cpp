@@ -1,5 +1,5 @@
 #include "BufferAssembler.hpp"
-#include <stdlib.h>
+#include <cstdlib>
 #include <iostream>
 
 BufferAssembler::BufferAssembler(){

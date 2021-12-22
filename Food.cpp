@@ -1,5 +1,5 @@
 #include "Food.hpp"
-#include <stdlib.h>
+#include <cstdlib>
 #include <time.h>
 
 Food::Food(){
