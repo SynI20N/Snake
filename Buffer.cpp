@@ -1,5 +1,5 @@
 #include "Buffer.hpp"
-#include <stdlib.h>
+#include <cstdlib>
 #include <algorithm>
 
 Buffer::Buffer(){
@@ -19,7 +19,7 @@ Square Buffer::Pop(){
 
 Square Buffer::Erase(){
     Square first = data.back();
-    data.erase(data.end());
+    data.erase(data.end() - 1);
     return first;
 }
 

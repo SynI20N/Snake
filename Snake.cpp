@@ -1,5 +1,5 @@
 #include "Snake.hpp"
-#include <stdlib.h>
+#include <cstdlib>
 
 using namespace std;
 

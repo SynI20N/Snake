@@ -7,7 +7,7 @@
 #include <fstream>
 #include <algorithm>
 #include <sstream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string.h>
 #include <GL/glew.h>
 #include <cmath>
