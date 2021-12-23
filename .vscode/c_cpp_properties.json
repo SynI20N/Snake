@@ -3,8 +3,9 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
-                "/home/preseed/Cpp/"
+                "/home/preseed/Cpp/src/openGL/**",
+                "/home/preseed/Cpp/src/gameObjects/**",
+                "${workspaceFolder}"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

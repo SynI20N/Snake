@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Buffer.hpp"
+#include "../openGL/Buffer.hpp"
 #include "Food.hpp"
 
 struct Vector2

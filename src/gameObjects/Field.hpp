@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Square.hpp"
-#include "Buffer.hpp"
+#include "../openGL/Square.hpp"
+#include "../openGL/Buffer.hpp"
 
 class Field{
     private:
         Buffer buffer;
-        vector<Position> walls;
         Color color;
     public:
-        Field(Color color);
+        Field();
         void Randomize();
         Buffer* GetBuffer();
+        Position GetRandomPoint();
 };

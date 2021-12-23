@@ -5,8 +5,8 @@
 
 using namespace std;
 
-typedef vector<int> Position;
-typedef vector<int> Velocity;
+typedef vector<float> Position;
+typedef vector<float> Velocity;
 enum Color{
     white,
     green,

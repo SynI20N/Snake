@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Buffer.hpp"
+#include "../openGL/Buffer.hpp"
+#include "Field.hpp"
 
 class Food{
     private:
@@ -9,7 +10,7 @@ class Food{
         Color color;
     public:
         Food();
-        Food(Position foodPosition, Color foodColor);
+        Food(Color foodColor);
         void Reset();
         Position GetPosition();
         Color GetColor();

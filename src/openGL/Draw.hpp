@@ -23,8 +23,8 @@ class Drawer{
         void Redraw(BufferAssembler assembler);
         GLFWwindow* GetWindow();
         Position GetScreenSettings();
-        float TransformX(int x);
-        float TransformY(int y);
+        float TransformX(float x);
+        float TransformY(float y);
         int GetMax(int i);
         void OnResize(GLFWwindow* window, int width, int height);
 };

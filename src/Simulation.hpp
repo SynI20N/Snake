@@ -1,9 +1,9 @@
 #pragma once
 
 #include <vector>
-#include "Draw.hpp"
-#include "Snake.hpp"
-#include "Food.hpp"
+#include "openGL/Draw.hpp"
+#include "gameObjects/Snake.hpp"
+#include "gameObjects/Food.hpp"
 
 class Simulation{
     private:

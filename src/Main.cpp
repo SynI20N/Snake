@@ -1,13 +1,13 @@
 #include <cstdlib>
 #include <iostream>
-#include "Draw.hpp"
+#include "openGL/Draw.hpp"
 #include "Simulation.hpp"
 #include <chrono>
 #include <thread>
 
 using namespace std;
 
-const chrono::milliseconds frameDelay = 80ms;
+const chrono::milliseconds frameDelay = 10ms;
 
 Position screenSettings = Position({1600, 900, 20});
 Drawer drawer;

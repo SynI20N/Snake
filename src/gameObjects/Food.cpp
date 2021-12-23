@@ -6,12 +6,13 @@ Food::Food(){
     
 }
 
-Food::Food(Position foodPosition, Color foodColor){
-    placement = foodPosition;
+Food::Food(Color foodColor){
     color = foodColor;
+    placement = Position(2, 0);
     buffer = Buffer();
 
-    buffer.Push(placement, color);
+    buffer.Push({1, 1}, color);
+    Reset();
 }
 
 void Food::Reset(){

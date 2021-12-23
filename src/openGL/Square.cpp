@@ -17,11 +17,11 @@ Square::Square(Position position, Color color){
         }
         else if(i == 3 || i == 9 || i == 15)
         {
-            coords[i] = position[0] - 1;
+            coords[i] = position[0] - 1.0f;
         }
         else if(i == 7 || i == 13 || i == 16)
         {
-            coords[i] = position[1] - 1;
+            coords[i] = position[1] - 1.0f;
         }
         else
         {

@@ -51,7 +51,6 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
     GLint Result = GL_FALSE;
     int InfoLogLength;
 
-    printf("Компиляция шейдера: %sn", vertex_file_path);
     char const * VertexSourcePointer = VertexShaderCode.c_str();
     glShaderSource(VertexShaderID, 1, &VertexSourcePointer , NULL);
     glCompileShader(VertexShaderID);
@@ -64,7 +63,6 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
       fprintf(stdout, "%sn", &VertexShaderErrorMessage[0]);
     }
 
-    printf("Компиляция шейдера: %sn", fragment_file_path);
     char const * FragmentSourcePointer = FragmentShaderCode.c_str();
     glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer , NULL);
     glCompileShader(FragmentShaderID);
@@ -77,7 +75,6 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
       fprintf(stdout, "%s\n", &FragmentShaderErrorMessage[0]);
     }
 
-    fprintf(stdout, "Создаем шейдерную программу и привязываем шейдеры к нейn");
     GLuint ProgramID = glCreateProgram();
     glAttachShader(ProgramID, VertexShaderID);
     glAttachShader(ProgramID, FragmentShaderID);
@@ -172,14 +169,14 @@ Position Drawer::GetScreenSettings(){
     return screenSettings;
 }
 
-float Drawer::TransformX(int x)
+float Drawer::TransformX(float x)
 {
-    return (float)(2 * x) / GetMax(0) - 1;
+    return (2 * x) / GetMax(0) - 1;
 }
 
-float Drawer::TransformY(int y)
+float Drawer::TransformY(float y)
 {
-    return 1 - (float)(2 * y) / GetMax(1);
+    return 1 - (2 * y) / GetMax(1);
 }
 
 int Drawer::GetMax(int projection){
