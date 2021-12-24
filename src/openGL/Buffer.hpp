@@ -12,6 +12,7 @@ class Buffer{
     public:
         Buffer();
         void Push(Position position, Color color);
+        void PushFront(Position position, Color color);
         Square Pop();
         Square Erase();
         GLfloat* GetInfo();

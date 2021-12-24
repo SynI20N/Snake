@@ -11,6 +11,11 @@ void Buffer::Push(Position position, Color color){
     data.push_back(square);
 }
 
+void Buffer::PushFront(Position position, Color color){
+    Square square = Square(position, color);
+    data.insert(data.begin(), square);
+}
+
 Square Buffer::Pop(){
     Square last = data.front();
     data.erase(data.begin());

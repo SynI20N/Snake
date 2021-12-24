@@ -20,6 +20,8 @@ const int maxIndices = 1080000;
 GLfloat drawBuf[maxIndices];
 GLfloat colorBuf[maxIndices];
 
+int bufferOffset = 0;
+
 Drawer::Drawer(){
 
 }
@@ -99,6 +101,7 @@ Drawer::Drawer(Position screenAttributes){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    screenSettings = screenAttributes;
     window = glfwCreateWindow(screenSettings[0], screenSettings[1], "Snake", nullptr, nullptr);
     glfwMakeContextCurrent(window);
     glewInit();
@@ -109,24 +112,23 @@ Drawer::Drawer(Position screenAttributes){
 
     glGenBuffers(1, &colorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    screenSettings = screenAttributes;
     shaderProgramID = loadShaders( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" );
 }
 
 void Drawer::Redraw(BufferAssembler assembler){
-    int offset = 0;
+    bufferOffset = 0;
     Buffer* buffer = assembler.Retrieve();
     for(int n = 0; n < assembler.GetCount(); n++) // O(n) this is bad
     {
         GLfloat* info = buffer[n].GetInfo();
-        copy(info, info + buffer[n].GetCount(), drawBuf + offset);
+        copy(info, info + buffer[n].GetCount(), drawBuf + bufferOffset);
         free(info);
 
         GLfloat* colorInfo = buffer[n].GetColorInfo();
-        copy(colorInfo, colorInfo + buffer[n].GetCount(), colorBuf + offset);
+        copy(colorInfo, colorInfo + buffer[n].GetCount(), colorBuf + bufferOffset);
         free(colorInfo);
 
-        offset += buffer[n].GetCount();
+        bufferOffset += buffer[n].GetCount();
     }
     delete[] buffer;
 
@@ -149,7 +151,7 @@ void Drawer::Redraw(BufferAssembler assembler){
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-    glDrawArrays(GL_TRIANGLES, 0, offset / 3);
+    glDrawArrays(GL_TRIANGLES, 0, bufferOffset / 3);
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glfwSwapBuffers(window);

@@ -15,7 +15,7 @@ Snake::Snake(Position startPosition, Color snakeColor, Velocity startVelocity){
     buffer = Buffer();
     alive = true;
 
-    for(int i = 0; i < 1000; i++)
+    for(int i = 0; i < 10; i++)
     {
         buffer.Push(head, Color::white);
     }
