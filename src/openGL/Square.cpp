@@ -1,4 +1,5 @@
 #include "Square.hpp"
+#include <cmath>
 
 using namespace std;
 
@@ -71,7 +72,10 @@ Position Square::GetPosition(){
 }
 
 bool Square::Overlaps(Position somePosition){
-    if(somePosition[0] == position[0] && somePosition[1] == position[1])
+    float epsilon = 0.01f;
+    bool equalX = fabs(somePosition[0] - position[0]) < epsilon;
+    bool equalY = fabs(somePosition[1] - position[1]) < epsilon;
+    if(equalX && equalY)
     {
         return true;
     }

@@ -1,5 +1,6 @@
 #include "Snake.hpp"
 #include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
@@ -14,114 +15,10 @@ Snake::Snake(Position startPosition, Color snakeColor, Velocity startVelocity){
     buffer = Buffer();
     alive = true;
 
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
-    buffer.Push(head, color);
+    for(int i = 0; i < 1000; i++)
+    {
+        buffer.Push(head, Color::white);
+    }
 }
 
 void Snake::Move(Vector2 constrains, vector<Food*> walls){

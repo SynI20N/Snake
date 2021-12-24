@@ -15,10 +15,10 @@
 
 using namespace std;
 
-const int maxSnake = 10800;
+const int maxIndices = 1080000;
 
-GLfloat drawBuf[maxSnake];
-GLfloat colorBuf[maxSnake];
+GLfloat drawBuf[maxIndices];
+GLfloat colorBuf[maxIndices];
 
 Drawer::Drawer(){
 
@@ -29,20 +29,20 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
     GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
     GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
-    std::string VertexShaderCode;
-    std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
+    string VertexShaderCode;
+    ifstream VertexShaderStream(vertex_file_path, ios::in);
     if(VertexShaderStream.is_open())
     {
-        std::stringstream sstr;
+        stringstream sstr;
         sstr << VertexShaderStream.rdbuf();
         VertexShaderCode = sstr.str();
         VertexShaderStream.close();
     }
 
-    std::string FragmentShaderCode;
-    std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
+    string FragmentShaderCode;
+    ifstream FragmentShaderStream(fragment_file_path, ios::in);
     if(FragmentShaderStream.is_open()){
-        std::stringstream sstr;
+        stringstream sstr;
         sstr << FragmentShaderStream.rdbuf();
         FragmentShaderCode = sstr.str();
         FragmentShaderStream.close();
@@ -58,7 +58,7 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
     glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
     glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
     if ( InfoLogLength > 0 ){
-      std::vector<char> VertexShaderErrorMessage(InfoLogLength+1);
+      vector<char> VertexShaderErrorMessage(InfoLogLength+1);
       glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
       fprintf(stdout, "%sn", &VertexShaderErrorMessage[0]);
     }
@@ -70,7 +70,7 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
     glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
     glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
     if ( InfoLogLength > 0 ){
-      std::vector<char> FragmentShaderErrorMessage(InfoLogLength+1);
+      vector<char> FragmentShaderErrorMessage(InfoLogLength+1);
       glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
       fprintf(stdout, "%s\n", &FragmentShaderErrorMessage[0]);
     }
@@ -83,7 +83,7 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
     glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
     glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
     if ( InfoLogLength > 0 ){
-      std::vector<char> ProgramErrorMessage(InfoLogLength+1);
+      vector<char> ProgramErrorMessage(InfoLogLength+1);
       glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
       fprintf(stdout, "%s\n", &ProgramErrorMessage[0]);
     }
@@ -95,7 +95,6 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
 }
 
 Drawer::Drawer(Position screenAttributes){
-    screenSettings = screenAttributes;
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -110,37 +109,38 @@ Drawer::Drawer(Position screenAttributes){
 
     glGenBuffers(1, &colorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+    screenSettings = screenAttributes;
     shaderProgramID = loadShaders( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" );
 }
 
 void Drawer::Redraw(BufferAssembler assembler){
     int offset = 0;
     Buffer* buffer = assembler.Retrieve();
-    for(int n = 0; n < assembler.GetCount(); n++)
+    for(int n = 0; n < assembler.GetCount(); n++) // O(n) this is bad
     {
         GLfloat* info = buffer[n].GetInfo();
-        for(int i = 0; i < buffer[n].GetCount() / 3; i++)
-        {
-            info[3*i + 0] = TransformX(info[3*i + 0]);
-            info[3*i + 1] = TransformY(info[3*i + 1]);
-        }
         copy(info, info + buffer[n].GetCount(), drawBuf + offset);
         free(info);
 
         GLfloat* colorInfo = buffer[n].GetColorInfo();
         copy(colorInfo, colorInfo + buffer[n].GetCount(), colorBuf + offset);
         free(colorInfo);
+
         offset += buffer[n].GetCount();
     }
     delete[] buffer;
 
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(drawBuf), drawBuf, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(drawBuf), drawBuf, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(colorBuf), colorBuf, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colorBuf), colorBuf, GL_DYNAMIC_DRAW);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(shaderProgramID);
+    GLint xMaxLocation = glGetUniformLocation(shaderProgramID, "xMax");
+    GLint yMaxLocation = glGetUniformLocation(shaderProgramID, "yMax");
+    glUniform1f(xMaxLocation, GetMax(0));
+    glUniform1f(yMaxLocation, GetMax(1));
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -167,16 +167,6 @@ GLFWwindow* Drawer::GetWindow(){
 
 Position Drawer::GetScreenSettings(){
     return screenSettings;
-}
-
-float Drawer::TransformX(float x)
-{
-    return (2 * x) / GetMax(0) - 1;
-}
-
-float Drawer::TransformY(float y)
-{
-    return 1 - (2 * y) / GetMax(1);
 }
 
 int Drawer::GetMax(int projection){

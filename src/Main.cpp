@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const chrono::milliseconds frameDelay = 10ms;
+const chrono::milliseconds frameDelay = 16ms;
 
 Position screenSettings = Position({1600, 900, 20});
 Drawer drawer;
@@ -28,11 +28,15 @@ int main (int argc, char** argv) {
     glfwSetFramebufferSizeCallback(drawer.GetWindow(), resizeWindow);
     while(!glfwWindowShouldClose(drawer.GetWindow()))
     {
-        simulation.Step();
-        this_thread::sleep_for(frameDelay);
+        for(int i = 0; i < 5; i++)
+        {
+            simulation.Step();
+            this_thread::sleep_for(frameDelay);
+        }
         glfwPollEvents();
     }
     while(glfwGetKey(drawer.GetWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS){
+        this_thread::sleep_for(frameDelay);
         glfwPollEvents();
     }
     glfwTerminate();
