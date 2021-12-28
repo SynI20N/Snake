@@ -1,18 +1,19 @@
 #pragma once
 
 #include "../openGL/Buffer.hpp"
-#include "Field.hpp"
+#include "../openGL/Renderable.hpp"
+#include <cstdlib>
 
-class Food{
+class Field;
+class Food : public Renderable{
     private:
-        Buffer buffer;
+        Field* field;
         Position placement;
         Color color;
     public:
         Food();
-        Food(Color foodColor);
+        Food(Color foodColor, Field* newField);
         void Reset();
         Position GetPosition();
         Color GetColor();
-        Buffer* GetBuffer();
 };

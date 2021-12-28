@@ -102,7 +102,7 @@ Drawer::Drawer(Position screenAttributes){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     screenSettings = screenAttributes;
-    window = glfwCreateWindow(screenSettings[0], screenSettings[1], "Snake", nullptr, nullptr);
+    window = glfwCreateWindow(screenSettings[0], screenSettings[1], "Snake", /*glfwGetPrimaryMonitor()*/ nullptr, nullptr);
     glfwMakeContextCurrent(window);
     glewInit();
 	glGenVertexArrays(1, &vertexArrayID);

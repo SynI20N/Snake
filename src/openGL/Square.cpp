@@ -72,7 +72,7 @@ Position Square::GetPosition(){
 }
 
 bool Square::Overlaps(Position somePosition){
-    float epsilon = 0.01f;
+    float epsilon = 0.1f;
     bool equalX = fabs(somePosition[0] - position[0]) < epsilon;
     bool equalY = fabs(somePosition[1] - position[1]) < epsilon;
     if(equalX && equalY)

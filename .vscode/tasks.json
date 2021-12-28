@@ -7,9 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "/home/preseed/Cpp/src/*.cpp",
-                "/home/preseed/Cpp/src/gameObjects/*.cpp",
                 "/home/preseed/Cpp/src/openGL/*.cpp",
+                "/home/preseed/Cpp/src/gameObjects/*.cpp",
+                "/home/preseed/Cpp/src/*.cpp",
                 "-o",
                 "/home/preseed/Cpp/bin/linux/Main.out",
                 "-lglfw",

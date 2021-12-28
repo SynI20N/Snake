@@ -1,6 +1,5 @@
 #include "BufferAssembler.hpp"
 #include <cstdlib>
-#include <iostream>
 
 BufferAssembler::BufferAssembler(){
     count = 0;

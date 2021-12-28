@@ -1,15 +1,21 @@
 #pragma once
 
-#include "../openGL/Square.hpp"
-#include "../openGL/Buffer.hpp"
+#include "../openGL/BufferAssembler.hpp"
+#include <cstdlib>
+#include "Food.hpp"
+#include "Snake.hpp"
 
 class Field{
     private:
-        Buffer buffer;
-        Color color;
+        BufferAssembler* scene;
+        Vector2 constrains;
+        vector<Position> availablePoints;
     public:
         Field();
-        void Randomize();
-        Buffer* GetBuffer();
+        Field(Vector2 newConstrains);
+        Snake* CreateSnake(Position startPosition, Color snakeColor, Velocity startVelocity);
+        Food* CreateFood(Color foodColor);
+        Vector2 GetConstrains();
         Position GetRandomPoint();
+        BufferAssembler GetScene();
 };

@@ -1,25 +1,25 @@
 #include "Food.hpp"
 #include <cstdlib>
 #include <time.h>
+#include "Field.hpp"
 
 Food::Food(){
     
 }
 
-Food::Food(Color foodColor){
+Food::Food(Color foodColor, Field* newField) : Renderable(){
     color = foodColor;
+    field = newField;
     placement = Position(2, 0);
-    buffer = Buffer();
 
-    buffer.Push({1, 1}, color);
+    (*GetBuffer()).Push({1, 1}, color);
     Reset();
 }
 
 void Food::Reset(){
-    placement[0] = rand() % 40 + 1;
-    placement[1] = rand() % 40 + 1;
-    buffer.Pop();
-    buffer.Push({placement[0], placement[1]}, color);
+    placement = field->GetRandomPoint();
+    (*GetBuffer()).Pop();
+    (*GetBuffer()).Push({placement[0], placement[1]}, color);
 }
 
 Position Food::GetPosition(){
@@ -28,8 +28,4 @@ Position Food::GetPosition(){
 
 Color Food::GetColor(){
     return color;
-}
-
-Buffer* Food::GetBuffer(){
-    return &buffer;
 }
