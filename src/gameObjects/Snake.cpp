@@ -6,11 +6,10 @@
 using namespace std;
 
 bool needInit = true;
-float movedX = 0;
-float movedY = 0;
-const float speed = 10.0f;
+float speed = 10.0f;
 Velocity tailVelocity = Velocity(2, 0);
 Position desiredHead = Position(2, 0);
+Vector2 cachedDirection = {0, 0};
 Position tail = Position(2, 0);
 
 Snake::Snake(){
@@ -56,14 +55,16 @@ void Snake::Move(float timeStep){
         tail[1] = last.GetPosition()[1];
         GetBuffer()->PushFront(afterLast.GetPosition(), color);
         GetBuffer()->PushFront(last.GetPosition(), color);
+        cachedDirection.x = direction.x;
+        cachedDirection.y = direction.y;
         needInit = false;
     }
-    head[0] += speed * direction.x * timeStep;
-    head[1] += speed * direction.y * timeStep;
+    head[0] += speed * cachedDirection.x * timeStep;
+    head[1] += speed * cachedDirection.y * timeStep;
     tail[0] += speed * tailVelocity[0] * timeStep;
     tail[1] += speed * tailVelocity[1] * timeStep;
-    bool notReachedX = (direction.x) * head[0] <= (direction.x) * desiredHead[0];
-    bool notReachedY = (direction.y) * head[1] <= (direction.y) * desiredHead[1];
+    bool notReachedX = (cachedDirection.x) * head[0] <= (cachedDirection.x) * desiredHead[0];
+    bool notReachedY = (cachedDirection.y) * head[1] <= (cachedDirection.y) * desiredHead[1];
     if(notReachedX && notReachedY)
     {
         GetBuffer()->Pop();
@@ -107,6 +108,7 @@ void Snake::Eat(Food* food){
     GetBuffer()->Push(food->GetPosition(), color);
     GetBuffer()->Push(food->GetPosition(), food->GetColor());
     food->Reset();
+    speed += 0.5f;
 }
 
 void Snake::ChangeDirection(Vector2 newDirection){
