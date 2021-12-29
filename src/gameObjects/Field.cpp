@@ -17,8 +17,8 @@ Field::Field(Vector2 newConstrains){
     }
 }
 
-Snake* Field::CreateSnake(Position startPosition, Color snakeColor, Velocity startVelocity){
-    Snake* snake = new Snake(startPosition, snakeColor, startVelocity, this);
+Snake* Field::CreateSnake(Position startPosition, Color snakeColor, Vector2 startDirection){
+    Snake* snake = new Snake(startPosition, snakeColor, startDirection, this);
     scene->Bind(snake->GetBuffer());
     return snake;
 }

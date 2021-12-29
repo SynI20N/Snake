@@ -13,5 +13,5 @@ void main(){
     float finalX = rand(vec2(fragmentPos.x,fragmentPos.y));
     float finalY = rand(vec2(fragmentPos.x,fragmentPos.y));
     float finalZ = rand(vec2(fragmentPos.x,fragmentPos.y));
-    color = fragmentColor - vec3(finalX, finalY, finalZ);
+    color = fragmentColor;// - vec3(finalX, finalY, finalZ);
 }

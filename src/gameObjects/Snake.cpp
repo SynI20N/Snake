@@ -6,59 +6,27 @@
 using namespace std;
 
 bool needInit = true;
-Square poped = Square({-1, -1}, Color::white);
+float movedX = 0;
+float movedY = 0;
+const float speed = 10.0f;
 Velocity tailVelocity = Velocity(2, 0);
+Position desiredHead = Position(2, 0);
+Position tail = Position(2, 0);
 
 Snake::Snake(){
     
 }
 
-Snake::Snake(Position startPosition, Color snakeColor, Velocity startVelocity, Field* newField) : Renderable(){
+Snake::Snake(Position startPosition, Color snakeColor, Vector2 startDirection, Field* newField) : Renderable(){
     color = snakeColor;
     head = startPosition;
-    velocity = startVelocity;
+    direction = startDirection;
     field = newField;
     alive = true;
 
-    for(int i = 0; i < 70; i++)
+    for(int i = 0; i < 5; i++)
     {
-        head[0] += 1;
-        GetBuffer()->Push({head[0], head[1]}, Color::white);
-    }
-    for(int i = 0; i < 20; i++)
-    {
-        head[1] += 1;
-        GetBuffer()->Push({head[0], head[1]}, Color::white);
-    }
-    for(int i = 0; i < 70; i++)
-    {
-        head[0] -= 1;
-        GetBuffer()->Push({head[0], head[1]}, Color::white);
-    }
-    for(int i = 0; i < 20; i++)
-    {
-        head[1] += 1;
-        GetBuffer()->Push({head[0], head[1]}, Color::white);
-    }
-    for(int i = 0; i < 70; i++)
-    {
-        head[0] += 1;
-        GetBuffer()->Push({head[0], head[1]}, Color::white);
-    }
-    for(int i = 0; i < 20; i++)
-    {
-        head[1] += 1;
-        GetBuffer()->Push({head[0], head[1]}, Color::white);
-    }
-    for(int i = 0; i < 70; i++)
-    {
-        head[0] -= 1;
-        GetBuffer()->Push({head[0], head[1]}, Color::white);
-    }
-    for(int i = 0; i < 20; i++)
-    {
-        head[1] += 1;
-        GetBuffer()->Push({head[0], head[1]}, Color::white);
+        GetBuffer()->Push({head[0]++, head[1]}, color);
     }
 }
 
@@ -66,54 +34,62 @@ void Snake::Move(float timeStep){
     if(needInit)
     {
         Square first = GetBuffer()->Erase();
-        GetBuffer()->Push(first.GetPosition(), Color::white);
-        GetBuffer()->Push(first.GetPosition(), Color::white);
+        Square last = GetBuffer()->Pop();
+        Square afterLast = GetBuffer()->Pop();
+        GetBuffer()->Push(first.GetPosition(), color);
+        GetBuffer()->Push(first.GetPosition(), color);
+        desiredHead[0] = first.GetPosition()[0] + direction.x;
+        desiredHead[1] = first.GetPosition()[1] + direction.y;
+        if(desiredHead[0] > field->GetConstrains().x || desiredHead[0] <= 0)
+        {
+            desiredHead[0] = abs(field->GetConstrains().x - abs(desiredHead[0]));
+        }
+        if(desiredHead[1] > field->GetConstrains().y || desiredHead[1] <= 0)
+        {
+            desiredHead[1] = abs(field->GetConstrains().y - abs(desiredHead[1]));
+        }
+        tailVelocity[0] = afterLast.GetPosition()[0] - last.GetPosition()[0];
+        tailVelocity[1] = afterLast.GetPosition()[1] - last.GetPosition()[1];
+        head[0] = first.GetPosition()[0];
+        head[1] = first.GetPosition()[1];
+        tail[0] = last.GetPosition()[0];
+        tail[1] = last.GetPosition()[1];
+        GetBuffer()->PushFront(afterLast.GetPosition(), color);
+        GetBuffer()->PushFront(last.GetPosition(), color);
         needInit = false;
-        Square tail = GetBuffer()->Pop();
-        poped = GetBuffer()->Pop();
-        tailVelocity[0] = poped.GetPosition()[0] - tail.GetPosition()[0];
-        tailVelocity[1] = poped.GetPosition()[1] - tail.GetPosition()[1];
-        GetBuffer()->PushFront(poped.GetPosition(), color);
-        GetBuffer()->PushFront(tail.GetPosition(), color);
-        poped = Square({-1, -1}, Color::white);
     }
-    if(!GetBuffer()->Contains(poped.GetPosition()))
+    head[0] += speed * direction.x * timeStep;
+    head[1] += speed * direction.y * timeStep;
+    tail[0] += speed * tailVelocity[0] * timeStep;
+    tail[1] += speed * tailVelocity[1] * timeStep;
+    bool notReachedX = (direction.x) * head[0] <= (direction.x) * desiredHead[0];
+    bool notReachedY = (direction.y) * head[1] <= (direction.y) * desiredHead[1];
+    if(notReachedX && notReachedY)
     {
-        float movedX = 0;
-        float movedY = 0;
-        poped = GetBuffer()->Pop();
-        head[0] += velocity[0] * timeStep;
-        head[1] += velocity[1] * timeStep;
-        movedX = poped.GetPosition()[0] + 10 * tailVelocity[0] * timeStep;
-        movedY = poped.GetPosition()[1] + 10 * tailVelocity[1] * timeStep;
-        if(head[0] > field->GetConstrains().x || head[0] <= 0)
-        {
-            head[0] = abs(field->GetConstrains().x - abs(head[0]));
-        }
-        if(head[1] > field->GetConstrains().y || head[1] <= 0)
-        {
-            head[1] = abs(field->GetConstrains().y - abs(head[1]));
-        }
+        GetBuffer()->Pop();
         if(GetBuffer()->Contains(head))
         {
             Die();
+            return;
         }
         GetBuffer()->Erase();
-        GetBuffer()->Push(head, Color::white);
-        GetBuffer()->PushFront({movedX, movedY}, Color::white);
-        return;
+        GetBuffer()->Push(head, Color::blue);
+        GetBuffer()->PushFront(tail, color);
     }
-    needInit = true;
-    head[0] = round(head[0]);
-    head[1] = round(head[1]);
-    GetBuffer()->Pop();
-    GetBuffer()->Erase();
-    GetBuffer()->Push(head, Color::white);
+    else
+    {
+        head[0] = round(head[0]);
+        head[1] = round(head[1]);
+        GetBuffer()->Pop();
+        GetBuffer()->Erase();
+        GetBuffer()->Push(head, Color::blue);
+        needInit = true;
+    }
 }
 
 void Snake::Die(){
     Square first = GetBuffer()->Erase();
-    GetBuffer()->Push(first.GetPosition(), Color::white);
+    GetBuffer()->Push(first.GetPosition(), color);
     GetBuffer()->Push(head, Color::red);
     alive = false;
 }
@@ -133,10 +109,10 @@ void Snake::Eat(Food* food){
     food->Reset();
 }
 
-void Snake::SetVelocity(Velocity newVelocity){
-    if(velocity[0] + newVelocity[0] == 0 && velocity[1] + newVelocity[1] == 0)
+void Snake::ChangeDirection(Vector2 newDirection){
+    if(direction.x + newDirection.x == 0 && direction.y + newDirection.y == 0)
     {
         return;
     }
-    velocity = newVelocity;
+    direction = newDirection;
 }

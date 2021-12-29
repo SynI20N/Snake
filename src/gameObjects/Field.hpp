@@ -13,7 +13,7 @@ class Field{
     public:
         Field();
         Field(Vector2 newConstrains);
-        Snake* CreateSnake(Position startPosition, Color snakeColor, Velocity startVelocity);
+        Snake* CreateSnake(Position startPosition, Color snakeColor, Vector2 startDirection);
         Food* CreateFood(Color foodColor);
         Vector2 GetConstrains();
         Position GetRandomPoint();

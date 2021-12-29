@@ -14,15 +14,15 @@ class Field;
 class Snake: public Renderable{
     private:
         Position head;
-        Velocity velocity;
+        Vector2 direction;
         Color color;
         Field* field;
         bool alive;
     public:
         Snake();
-        Snake(Position startPosition, Color startColor, Velocity startVelocity, Field* newField);
+        Snake(Position startPosition, Color startColor, Vector2 startDirection, Field* newField);
         void Move(float timeStep);
-        void SetVelocity(Velocity newVelocity);
+        void ChangeDirection(Vector2 newDirection);
         void Eat(Food* food);
         void Die();
         bool IsAlive();
