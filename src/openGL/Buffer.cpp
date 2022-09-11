@@ -16,16 +16,16 @@ void Buffer::PushFront(Position position, Color color){
     data.insert(data.begin(), square);
 }
 
-Square Buffer::Pop(){
-    Square last = data.front();
+Square Buffer::RemoveFirst(){
+    Square first = data.front();
     data.erase(data.begin());
-    return last;
+    return first;
 }
 
-Square Buffer::Erase(){
-    Square first = data.back();
+Square Buffer::RemoveLast(){
+    Square last = data.back();
     data.erase(data.end() - 1);
-    return first;
+    return last;
 }
 
 bool Buffer::Contains(Position position){
@@ -40,7 +40,7 @@ bool Buffer::Contains(Position position){
 }
 
 GLfloat* Buffer::GetInfo(){
-    float* array = (float*)malloc(sizeof(float) * (data.size() * 18 + 1));
+    float* array = new float[data.size() * 18 + 1];//(float*)malloc(sizeof(float) * (data.size() * 18 + 1));
     int k = 0;
     for(int i = 0; i < data.size(); i++)
     {
@@ -54,19 +54,54 @@ GLfloat* Buffer::GetInfo(){
 }
 
 GLfloat* Buffer::GetColorInfo(){
-    float* array = (float*)malloc(sizeof(float) * (data.size() * 18 + 1));
+    GLfloat* arr = new GLfloat[data.size() * 18 + 1];//(float*)malloc(sizeof(float) * (data.size() * 18 + 1));
     int k = 0;
     for(int i = 0; i < data.size(); i++)
     {
         for(int j = 0; j < 18; j++)
         {
-            array[k] = data[i].GetColor()[j];
+            arr[k] = data[i].GetColor()[j];
             k++;
         }
     }
-    return array;
+    return arr;
 }
 
 int Buffer::GetCount(){
     return data.size() * 18;
+}
+
+Square Buffer::Get(int index)
+{
+    return data[index];
+}
+
+Square Buffer::GetLast()
+{
+    return data[data.size() - 1];
+}
+
+void Buffer::ReplaceFirst(Position position, Color color)
+{
+    data[0] = Square(position, color);
+}
+
+void Buffer::ReplaceLast(Position position, Color color)
+{
+    data[data.size() - 1] = Square(position, color);
+}
+
+void Buffer::Replace(int index, Position position, Color color)
+{
+    data[index] = Square(position, color);
+}
+
+Square Buffer::GetFirst()
+{
+    return data[0];
+}
+
+int Buffer::Size()
+{
+    return data.size();
 }

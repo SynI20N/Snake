@@ -27,13 +27,6 @@ int main (int argc, char** argv) {
     {
         simulation.Step();
         this_thread::sleep_for(frameDelay);
-        if(glfwWindowShouldClose(drawer.GetWindow()))
-        {
-            while(glfwGetKey(drawer.GetWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS){
-                this_thread::sleep_for(frameDelay);
-                glfwPollEvents();
-            }
-        }
         glfwPollEvents();
     }
     glfwTerminate();

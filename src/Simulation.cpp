@@ -29,14 +29,13 @@ Simulation::Simulation(Drawer drawer){
 }
 
 void Simulation::Step(){
-    snake->Move(frameDelayF);
-    snake->Eat(food);
+    if (snake->IsAlive())
+    {
+        snake->Move(frameDelayF);
+        snake->Eat(food);
+    }
     drawer.Redraw(field->GetScene());
     redrawed = 1;
-    if(!snake->IsAlive())
-    {
-        glfwSetWindowShouldClose(drawer.GetWindow(), 1);
-    }
 }
 
 void Simulation::OnInput(GLFWwindow* window, int key, int scancode, int action, int mods)

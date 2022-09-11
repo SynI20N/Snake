@@ -17,6 +17,9 @@ using namespace std;
 
 const int maxIndices = 1080000;
 
+const char* vertexShaderPath = "C:\\Users\\Novik\\source\\repos\\Snake\\x64\\Debug\\Shaders\\Vertex.glsl";
+const char* fragmentShaderPath = "C:\\Users\\Novik\\source\\repos\\Snake\\x64\\Debug\\Shaders\\Fragment.glsl";
+
 GLfloat drawBuf[maxIndices];
 GLfloat colorBuf[maxIndices];
 
@@ -62,7 +65,7 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
     if ( InfoLogLength > 0 ){
       vector<char> VertexShaderErrorMessage(InfoLogLength+1);
       glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
-      fprintf(stdout, "%sn", &VertexShaderErrorMessage[0]);
+      fprintf(stdout, "%s\n", &VertexShaderErrorMessage[0]);
     }
 
     char const * FragmentSourcePointer = FragmentShaderCode.c_str();
@@ -90,6 +93,7 @@ GLuint loadShaders(const char * vertex_file_path,const char * fragment_file_path
       fprintf(stdout, "%s\n", &ProgramErrorMessage[0]);
     }
 
+
     glDeleteShader(VertexShaderID);
     glDeleteShader(FragmentShaderID);
 
@@ -104,7 +108,10 @@ Drawer::Drawer(Position screenAttributes){
     screenSettings = screenAttributes;
     window = glfwCreateWindow(screenSettings[0], screenSettings[1], "Snake", /*glfwGetPrimaryMonitor()*/ nullptr, nullptr);
     glfwMakeContextCurrent(window);
+    glewExperimental = GL_TRUE;
     glewInit();
+
+    vertexArrayID = 0;
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
 	glGenBuffers(1, &vertexBuffer);
@@ -112,7 +119,7 @@ Drawer::Drawer(Position screenAttributes){
 
     glGenBuffers(1, &colorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    shaderProgramID = loadShaders( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" );
+    shaderProgramID = loadShaders( vertexShaderPath, fragmentShaderPath );
 }
 
 void Drawer::Redraw(BufferAssembler assembler){

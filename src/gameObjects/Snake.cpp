@@ -1,118 +1,183 @@
 #include "Snake.hpp"
 #include <cstdlib>
 #include <cmath>
+#include <iostream>
 #include "Field.hpp"
 
 using namespace std;
 
-bool needInit = true;
-float speed = 10.0f;
-Velocity tailVelocity = Velocity(2, 0);
+bool newCycle = true;
+float speed = 20;//10.0f;
+Vector2 tailDirection = { 0, 0 };
 Position desiredHead = Position(2, 0);
-Vector2 cachedDirection = {0, 0};
+Vector2 headDirection = { 0, 0 };
 Position tail = Position(2, 0);
+Buffer* snakeBuffer;
+bool isTp = false;
 
-Snake::Snake(){
-    
+Snake::Snake() {
+
 }
 
-Snake::Snake(Position startPosition, Color snakeColor, Vector2 startDirection, Field* newField) : Renderable(){
+Snake::Snake(Position startPosition, Color snakeColor, Vector2 startDirection, Field* newField) : Renderable() {
     color = snakeColor;
     head = startPosition;
     direction = startDirection;
     field = newField;
     alive = true;
 
-    for(int i = 0; i < 5; i++)
+    const int length = 5;
+
+    snakeBuffer = GetBuffer();
+    for (int i = length; i > 0; i--)
     {
-        GetBuffer()->Push({head[0]++, head[1]}, color);
+        snakeBuffer->Push({head[0] - i, head[1]}, color);
     }
+    snakeBuffer->Push({ head[0], head[1] }, Color::blue);
+
+    tail[0] = head[0] - length;
+    tail[1] = head[1];
+
+    OnReached();
+
 }
 
-void Snake::Move(float timeStep){
-    if(needInit)
+void Snake::Move(float timeStep) 
+{
+
+    auto delta = speed * timeStep;
+    head[0] += delta * headDirection.x;
+    head[1] += delta * headDirection.y;
+    tail[0] += delta * tailDirection.x;
+    tail[1] += delta * tailDirection.y;
+
+    bool reachedX = (headDirection.x) * head[0] > (headDirection.x) * desiredHead[0];
+    bool reachedY = (headDirection.y) * head[1] > (headDirection.y) * desiredHead[1];
+
+    if ((reachedX || reachedY) && !isTp)
     {
-        Square first = GetBuffer()->Erase();
-        Square last = GetBuffer()->Pop();
-        Square afterLast = GetBuffer()->Pop();
-        GetBuffer()->Push(first.GetPosition(), color);
-        GetBuffer()->Push(first.GetPosition(), color);
-        desiredHead[0] = first.GetPosition()[0] + direction.x;
-        desiredHead[1] = first.GetPosition()[1] + direction.y;
-        if(desiredHead[0] > field->GetConstrains().x || desiredHead[0] <= 0)
-        {
-            desiredHead[0] = abs(field->GetConstrains().x - abs(desiredHead[0]));
-        }
-        if(desiredHead[1] > field->GetConstrains().y || desiredHead[1] <= 0)
-        {
-            desiredHead[1] = abs(field->GetConstrains().y - abs(desiredHead[1]));
-        }
-        tailVelocity[0] = afterLast.GetPosition()[0] - last.GetPosition()[0];
-        tailVelocity[1] = afterLast.GetPosition()[1] - last.GetPosition()[1];
-        head[0] = first.GetPosition()[0];
-        head[1] = first.GetPosition()[1];
-        tail[0] = last.GetPosition()[0];
-        tail[1] = last.GetPosition()[1];
-        GetBuffer()->PushFront(afterLast.GetPosition(), color);
-        GetBuffer()->PushFront(last.GetPosition(), color);
-        cachedDirection.x = direction.x;
-        cachedDirection.y = direction.y;
-        needInit = false;
+        OnReached();
     }
-    head[0] += speed * cachedDirection.x * timeStep;
-    head[1] += speed * cachedDirection.y * timeStep;
-    tail[0] += speed * tailVelocity[0] * timeStep;
-    tail[1] += speed * tailVelocity[1] * timeStep;
-    bool notReachedX = (cachedDirection.x) * head[0] <= (cachedDirection.x) * desiredHead[0];
-    bool notReachedY = (cachedDirection.y) * head[1] <= (cachedDirection.y) * desiredHead[1];
-    if(notReachedX && notReachedY)
+
+    //cout << "Before head: " << head[0] << ' ' << head[1] << endl;
+
+    if (head[0] > field->GetConstrains().x || head[0] <= 0)
     {
-        GetBuffer()->Pop();
-        if(GetBuffer()->Contains(head))
-        {
-            Die();
-            return;
-        }
-        GetBuffer()->Erase();
-        GetBuffer()->Push(head, Color::blue);
-        GetBuffer()->PushFront(tail, color);
+        head[0] = fabs(field->GetConstrains().x - fabs(head[0]));
+        isTp = false;
     }
-    else
+    if (head[1] > field->GetConstrains().y || head[1] <= 0)
     {
-        head[0] = round(head[0]);
-        head[1] = round(head[1]);
-        GetBuffer()->Pop();
-        GetBuffer()->Erase();
-        GetBuffer()->Push(head, Color::blue);
-        needInit = true;
+        head[1] = fabs(field->GetConstrains().y - fabs(head[1]));
+        isTp = false;
     }
+
+    //cout << "After head: " << head[0] << ' ' << head[1] << endl;
+
+    snakeBuffer->ReplaceLast(head, Color::blue);
+    snakeBuffer->ReplaceFirst(tail, Color::white);
+    
+    
 }
 
-void Snake::Die(){
-    Square first = GetBuffer()->Erase();
-    GetBuffer()->Push(first.GetPosition(), color);
-    GetBuffer()->Push(head, Color::red);
+void Snake::OnReached()
+{
+    snakeBuffer->RemoveFirst();
+    auto newTailSquare = snakeBuffer->GetFirst();
+    auto afterTailSquare = snakeBuffer->Get(1);
+    auto headSquare = snakeBuffer->RemoveLast();
+
+    head[0] = round(head[0]);
+    head[1] = round(head[1]);
+    tail[0] = newTailSquare.GetPosition()[0];
+    tail[1] = newTailSquare.GetPosition()[1];
+
+    snakeBuffer->Push(head, Color::white);
+    snakeBuffer->Push(head, Color::blue);
+
+    DetectDirections(afterTailSquare.GetPosition(), tail);
+
+    desiredHead[0] = head[0] + direction.x;
+    desiredHead[1] = head[1] + direction.y;
+    isTp = false;
+    if (desiredHead[0] > field->GetConstrains().x || desiredHead[0] <= 0)
+    {
+        desiredHead[0] = abs(field->GetConstrains().x - abs(desiredHead[0]));
+        isTp = true;
+    }
+    if (desiredHead[1] > field->GetConstrains().y || desiredHead[1] <= 0)
+    {
+        desiredHead[1] = abs(field->GetConstrains().y - abs(desiredHead[1]));
+        isTp = true;
+    }
+
+    if (isTp) 
+        cout << "TP" << endl;
+
+    if (GetBuffer()->Contains(desiredHead))
+    {
+        Die();
+        return;
+    }
+    //cout << "Desired: " << desiredHead[0] << ' ' << desiredHead[1] << ' ' << isTp << endl;
+}
+
+void Snake::DetectDirections(Position afterTailPosition, Position tailPosition)
+{
+    headDirection.x = direction.x;
+    headDirection.y = direction.y;
+
+    Vector2 _tailDirection[] = { 
+        { afterTailPosition[0] - tailPosition[0], afterTailPosition[1] - tailPosition[1] },
+        { afterTailPosition[0] - tailPosition[0] - field->GetConstrains().x, 0 },
+        { afterTailPosition[0] - tailPosition[0] + field->GetConstrains().x, 0 },
+        { 0, afterTailPosition[1] - tailPosition[1] - field->GetConstrains().y },
+        { 0, afterTailPosition[1] - tailPosition[1] + field->GetConstrains().y },
+    };
+
+    auto resultDirection = _tailDirection[0];
+    auto minLength = VectorLength(resultDirection.x, resultDirection.y);
+    for (int i = 1; i < 5; i++) 
+    {
+        auto currDirection = _tailDirection[i];
+        auto length = VectorLength(currDirection.x, currDirection.y);
+        if (length < minLength) {
+            minLength = length;
+            resultDirection = currDirection;
+        }
+    }
+
+    tailDirection = resultDirection;
+}
+
+float Snake::VectorLength(float x, float y)
+{
+    return sqrt(x * x + y * y);
+}
+
+void Snake::Die() {
+    GetBuffer()->ReplaceLast(head, Color::red);
     alive = false;
 }
 
-bool Snake::IsAlive(){
+bool Snake::IsAlive() {
     return alive;
 }
 
-void Snake::Eat(Food* food){
-    if(!GetBuffer()->Contains(food->GetPosition()))
+void Snake::Eat(Food* food) {
+    if (!GetBuffer()->Contains(food->GetPosition()))
     {
         return;
     }
-    GetBuffer()->Erase();
+    GetBuffer()->RemoveLast();
     GetBuffer()->Push(food->GetPosition(), color);
     GetBuffer()->Push(food->GetPosition(), food->GetColor());
     food->Reset();
     speed += 0.5f;
 }
 
-void Snake::ChangeDirection(Vector2 newDirection){
-    if(direction.x + newDirection.x == 0 && direction.y + newDirection.y == 0)
+void Snake::ChangeDirection(Vector2 newDirection) {
+    if (direction.x + newDirection.x == 0 && direction.y + newDirection.y == 0)
     {
         return;
     }

@@ -4,8 +4,9 @@
 using namespace std;
 
 Square::Square(Position position, Color color){
-    Square::position.push_back(position[0]);
-    Square::position.push_back(position[1]);
+    this->position.push_back(position[0]);
+    this->position.push_back(position[1]);
+    this->color = color;
     for(int i = 0; i < 18; i++)
     {
         if(i == 0 || i == 6 || i == 12)
@@ -80,6 +81,11 @@ bool Square::Overlaps(Position somePosition){
         return true;
     }
     return false;
+}
+
+Square Square::Copy()
+{
+    return Square(position, color);
 }
 
 GLfloat* Square::GetCoords(){

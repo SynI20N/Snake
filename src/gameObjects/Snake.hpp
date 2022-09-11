@@ -18,12 +18,17 @@ class Snake: public Renderable{
         Color color;
         Field* field;
         bool alive;
+
+        void OnReached();
+        void DetectDirections(Position, Position);
+        float VectorLength(float x, float y);
+        void Die();
+
     public:
         Snake();
         Snake(Position startPosition, Color startColor, Vector2 startDirection, Field* newField);
         void Move(float timeStep);
         void ChangeDirection(Vector2 newDirection);
         void Eat(Food* food);
-        void Die();
         bool IsAlive();
 };

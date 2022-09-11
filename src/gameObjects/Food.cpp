@@ -18,7 +18,7 @@ Food::Food(Color foodColor, Field* newField) : Renderable(){
 
 void Food::Reset(){
     placement = field->GetRandomPoint();
-    (*GetBuffer()).Pop();
+    (*GetBuffer()).RemoveFirst();
     (*GetBuffer()).Push({placement[0], placement[1]}, color);
 }
 

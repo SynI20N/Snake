@@ -12,10 +12,18 @@ class Buffer{
         Buffer();
         void Push(Position position, Color color);
         void PushFront(Position position, Color color);
-        Square Pop();
-        Square Erase();
+        Square RemoveFirst();
+        Square RemoveLast();
         GLfloat* GetInfo();
         GLfloat* GetColorInfo();
         bool Contains(Position position);
         int GetCount();
+
+        Square Get(int index);
+        Square GetLast();
+        Square GetFirst();
+        void ReplaceFirst(Position, Color);
+        void ReplaceLast(Position, Color);
+        void Replace(int, Position, Color);
+        int Size();
 };
