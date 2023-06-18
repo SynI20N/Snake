@@ -5,13 +5,12 @@
             "label": "C/C++: g++ сборка активного файла",
             "command": "/usr/bin/g++",
             "args": [
-                "-fdiagnostics-color=always",
                 "-g",
-                "/home/preseed/Cpp/src/openGL/*.cpp",
-                "/home/preseed/Cpp/src/gameObjects/*.cpp",
-                "/home/preseed/Cpp/src/*.cpp",
+                "/home/leonid/Projects/Snake/src/*.cpp",
+                "/home/leonid/Projects/Snake/src/openGL/*.cpp",
+                "/home/leonid/Projects/Snake/src/gameObjects/*.cpp",
                 "-o",
-                "/home/preseed/Cpp/bin/linux/Main.out",
+                "/home/leonid/Projects/Snake/bin/linux/Main.out",
                 "-lglfw",
                 "-lGLEW",
                 "-lGL"

@@ -1,12 +1,13 @@
 #include "openGL/Draw.hpp"
 #include "Simulation.hpp"
 #include <chrono>
+#include <ctime>
+#include <math.h>
 #include <thread>
 #include "Constants.hpp"
 
 using namespace std;
 
-Position screenSettings = Position({1600, 900, 20});
 Drawer drawer;
 Simulation simulation;
 
@@ -19,14 +20,21 @@ void processInput(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 
 int main (int argc, char** argv) {
+    loadConfig("config.txt");
     drawer = Drawer(screenSettings);
     simulation = Simulation(drawer);
     glfwSetKeyCallback(drawer.GetWindow(), processInput);
     glfwSetFramebufferSizeCallback(drawer.GetWindow(), resizeWindow);
+    auto start = chrono::steady_clock::now();
+    auto end = chrono::steady_clock::now();
+    auto diff = end - start;
     while(!glfwWindowShouldClose(drawer.GetWindow()))
     {
-        simulation.Step();
+        start = chrono::steady_clock::now();
         this_thread::sleep_for(frameDelay);
+        simulation.Step(chrono::duration_cast<chrono::microseconds>(diff).count() / pow(10, 6));
+        end = chrono::steady_clock::now();
+        diff = end - start;
         glfwPollEvents();
     }
     glfwTerminate();

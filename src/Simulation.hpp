@@ -5,8 +5,6 @@
 #include "gameObjects/Snake.hpp"
 #include "gameObjects/Food.hpp"
 #include "gameObjects/Field.hpp"
-#include <vector>
-#include <unordered_map>
 
 class Simulation{
     private:
@@ -17,6 +15,6 @@ class Simulation{
     public:
         Simulation();
         Simulation(Drawer drawer);
-        void Step();
+        void Step(float deltaTime);
         void OnInput(GLFWwindow* window, int key, int scancode, int action, int mods);
 };

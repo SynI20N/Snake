@@ -17,8 +17,8 @@ using namespace std;
 
 const int maxIndices = 1080000;
 
-const char* vertexShaderPath = "C:\\Users\\Novik\\source\\repos\\Snake\\x64\\Debug\\Shaders\\Vertex.glsl";
-const char* fragmentShaderPath = "C:\\Users\\Novik\\source\\repos\\Snake\\x64\\Debug\\Shaders\\Fragment.glsl";
+const char* vertexShaderPath = "../../bin/Shaders/Vertex.glsl";
+const char* fragmentShaderPath = "../../bin/Shaders/Fragment.glsl";
 
 GLfloat drawBuf[maxIndices];
 GLfloat colorBuf[maxIndices];
@@ -106,7 +106,7 @@ Drawer::Drawer(Position screenAttributes){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     screenSettings = screenAttributes;
-    window = glfwCreateWindow(screenSettings[0], screenSettings[1], "Snake", /*glfwGetPrimaryMonitor()*/ nullptr, nullptr);
+    window = glfwCreateWindow(screenSettings[0], screenSettings[1], "Snake", nullptr, nullptr);
     glfwMakeContextCurrent(window);
     glewExperimental = GL_TRUE;
     glewInit();

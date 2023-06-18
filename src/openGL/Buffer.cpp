@@ -40,7 +40,7 @@ bool Buffer::Contains(Position position){
 }
 
 GLfloat* Buffer::GetInfo(){
-    float* array = new float[data.size() * 18 + 1];//(float*)malloc(sizeof(float) * (data.size() * 18 + 1));
+    float* array = new float[data.size() * 18];//(float*)malloc(sizeof(float) * (data.size() * 18 + 1));
     int k = 0;
     for(int i = 0; i < data.size(); i++)
     {
@@ -54,7 +54,7 @@ GLfloat* Buffer::GetInfo(){
 }
 
 GLfloat* Buffer::GetColorInfo(){
-    GLfloat* arr = new GLfloat[data.size() * 18 + 1];//(float*)malloc(sizeof(float) * (data.size() * 18 + 1));
+    GLfloat* arr = new GLfloat[data.size() * 18];
     int k = 0;
     for(int i = 0; i < data.size(); i++)
     {

@@ -3,11 +3,11 @@
 #include <cmath>
 #include <iostream>
 #include "Field.hpp"
+#include "../Constants.hpp"
 
 using namespace std;
 
 bool newCycle = true;
-float speed = 20;//10.0f;
 Vector2 tailDirection = { 0, 0 };
 Position desiredHead = Position(2, 0);
 Vector2 headDirection = { 0, 0 };
@@ -44,8 +44,7 @@ Snake::Snake(Position startPosition, Color snakeColor, Vector2 startDirection, F
 
 void Snake::Move(float timeStep) 
 {
-
-    auto delta = speed * timeStep;
+    double delta = speed * timeStep;
     head[0] += delta * headDirection.x;
     head[1] += delta * headDirection.y;
     tail[0] += delta * tailDirection.x;
@@ -59,7 +58,11 @@ void Snake::Move(float timeStep)
         OnReached();
     }
 
-    //cout << "Before head: " << head[0] << ' ' << head[1] << endl;
+    if(!alive)
+    {
+        return;
+    }
+
 
     if (head[0] > field->GetConstrains().x || head[0] <= 0)
     {
@@ -71,8 +74,6 @@ void Snake::Move(float timeStep)
         head[1] = fabs(field->GetConstrains().y - fabs(head[1]));
         isTp = false;
     }
-
-    //cout << "After head: " << head[0] << ' ' << head[1] << endl;
 
     snakeBuffer->ReplaceLast(head, Color::blue);
     snakeBuffer->ReplaceFirst(tail, Color::white);
@@ -111,15 +112,10 @@ void Snake::OnReached()
         isTp = true;
     }
 
-    if (isTp) 
-        cout << "TP" << endl;
-
     if (GetBuffer()->Contains(desiredHead))
     {
         Die();
-        return;
     }
-    //cout << "Desired: " << desiredHead[0] << ' ' << desiredHead[1] << ' ' << isTp << endl;
 }
 
 void Snake::DetectDirections(Position afterTailPosition, Position tailPosition)
@@ -164,7 +160,7 @@ bool Snake::IsAlive() {
     return alive;
 }
 
-void Snake::Eat(Food* food) {
+void Snake::TryEat(Food* food) {
     if (!GetBuffer()->Contains(food->GetPosition()))
     {
         return;
@@ -173,11 +169,10 @@ void Snake::Eat(Food* food) {
     GetBuffer()->Push(food->GetPosition(), color);
     GetBuffer()->Push(food->GetPosition(), food->GetColor());
     food->Reset();
-    speed += 0.5f;
 }
 
 void Snake::ChangeDirection(Vector2 newDirection) {
-    if (direction.x + newDirection.x == 0 && direction.y + newDirection.y == 0)
+    if (headDirection.x + newDirection.x == 0 && headDirection.y + newDirection.y == 0)
     {
         return;
     }

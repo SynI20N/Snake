@@ -29,6 +29,6 @@ class Snake: public Renderable{
         Snake(Position startPosition, Color startColor, Vector2 startDirection, Field* newField);
         void Move(float timeStep);
         void ChangeDirection(Vector2 newDirection);
-        void Eat(Food* food);
+        void TryEat(Food* food);
         bool IsAlive();
 };

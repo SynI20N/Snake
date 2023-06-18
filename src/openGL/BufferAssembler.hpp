@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Buffer.hpp"
+#define OBJECT_COUNT 400
 
 class BufferAssembler{
     private:
-        Buffer* sceneBuffer[400];
+        Buffer* sceneBuffer[OBJECT_COUNT];
         int count;
     public:
         BufferAssembler();

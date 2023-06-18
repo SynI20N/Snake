@@ -7,29 +7,29 @@ Square::Square(Position position, Color color){
     this->position.push_back(position[0]);
     this->position.push_back(position[1]);
     this->color = color;
-    for(int i = 0; i < 18; i++)
-    {
-        if(i == 0 || i == 6 || i == 12)
-        {
-            coords[i] = position[0];
-        }
-        else if(i == 1 || i == 4 || i == 10)
-        {
-            coords[i] = position[1];
-        }
-        else if(i == 3 || i == 9 || i == 15)
-        {
-            coords[i] = position[0] - 1.0f;
-        }
-        else if(i == 7 || i == 13 || i == 16)
-        {
-            coords[i] = position[1] - 1.0f;
-        }
-        else
-        {
-            coords[i] = 0;
-        }
-    }
+    coords[0] = position[0];
+    coords[1] = position[1];
+    coords[2] = 0;
+
+    coords[3] = position[0] - 1.0f;
+    coords[4] = position[1];
+    coords[5] = 0;
+
+    coords[6] = position[0];
+    coords[7] = position[1] - 1.0f;
+    coords[8] = 0;
+
+    coords[9] = position[0] - 1.0f;
+    coords[10] = position[1];
+    coords[11] = 0;
+
+    coords[12] = coords[6];
+    coords[13] = coords[7];
+    coords[14] = coords[8];
+
+    coords[15] = position[0] - 1.0f;
+    coords[16] = position[1] - 1.0f;
+    coords[17] = 0;
 
     switch(color)
     {

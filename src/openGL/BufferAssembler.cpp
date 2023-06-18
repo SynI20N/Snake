@@ -3,7 +3,7 @@
 
 BufferAssembler::BufferAssembler(){
     count = 0;
-    for(int i = 0; i < 100; i++)
+    for(int i = 0; i < OBJECT_COUNT; i++)
     {
         sceneBuffer[i] = nullptr;
     }
