@@ -17,8 +17,16 @@ using namespace std;
 
 const int maxIndices = 1080000;
 
-const char* vertexShaderPath = "../../bin/Shaders/Vertex.glsl";
-const char* fragmentShaderPath = "../../bin/Shaders/Fragment.glsl";
+#ifdef win64
+const char* vertexShaderPath = "..\\Shaders\\Vertex.glsl";
+const char* fragmentShaderPath = "..\\Shaders\\Fragment.glsl";
+#endif
+
+#ifdef linux
+const char* vertexShaderPath = "../Shaders/Vertex.glsl";
+const char* fragmentShaderPath = "../Shaders/Fragment.glsl";
+#endif
+
 
 GLfloat drawBuf[maxIndices];
 GLfloat colorBuf[maxIndices];

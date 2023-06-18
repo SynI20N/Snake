@@ -3,6 +3,12 @@
 #include <chrono>
 #include <ctime>
 #include <math.h>
+#ifdef win64
+#include <windows.h>
+#else
+#include <unistd.h>
+#define Sleep(x) usleep((x)*1000)
+#endif
 #include <thread>
 #include "Constants.hpp"
 
@@ -31,7 +37,7 @@ int main (int argc, char** argv) {
     while(!glfwWindowShouldClose(drawer.GetWindow()))
     {
         start = chrono::steady_clock::now();
-        this_thread::sleep_for(frameDelay);
+        Sleep(frameDelay.count());
         simulation.Step(chrono::duration_cast<chrono::microseconds>(diff).count() / pow(10, 6));
         end = chrono::steady_clock::now();
         diff = end - start;

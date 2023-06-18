@@ -26,6 +26,38 @@
                 "isDefault": true
             },
             "detail": "Задача создана отладчиком."
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++ сборка активного файла",
+            "command": "/usr/bin/x86_64-w64-mingw32-g++",
+            "args": [
+                "-D win64",
+                "-D MINGW_STDTHREADS_GENERATE_STDHEADERS",
+                "-L/usr/lib/gcc/x86_64-w64-mingw32/10-win32/",
+                "-I/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include/c++/",
+                "-std=c++11",
+                "-g",
+                "/home/leonid/Projects/Snake/src/*.cpp",
+                "/home/leonid/Projects/Snake/src/openGL/*.cpp",
+                "/home/leonid/Projects/Snake/src/gameObjects/*.cpp",
+                "-o",
+                "/home/leonid/Projects/Snake/bin/windows/Snake.exe",
+                "-lglfw3",
+                "-lglew32",
+                "-lopengl32"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Задача создана отладчиком."
         }
     ],
     "version": "2.0.0"
