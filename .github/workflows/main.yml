@@ -13,4 +13,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run
-      run: \bin\windows\Snake.exe 
+      run: cd .. && cd .. && dir 
