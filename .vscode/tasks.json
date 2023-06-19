@@ -2,9 +2,10 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: g++ сборка активного файла",
+            "label": "linuxbuild",
             "command": "/usr/bin/g++",
             "args": [
+                "-D linux",
                 "-g",
                 "/home/leonid/Projects/Snake/src/*.cpp",
                 "/home/leonid/Projects/Snake/src/openGL/*.cpp",
@@ -21,20 +22,15 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "detail": "Задача создана отладчиком."
         },
         {
             "type": "cppbuild",
-            "label": "C/C++: g++ сборка активного файла",
+            "label": "win64build",
             "command": "/usr/bin/x86_64-w64-mingw32-g++",
             "args": [
                 "-D win64",
-                "-D MINGW_STDTHREADS_GENERATE_STDHEADERS",
-                "-L/usr/lib/gcc/x86_64-w64-mingw32/10-win32/",
+                "-L/usr/lib/gcc/x86_64-w64-mingw32/10-win32/GL/",
                 "-I/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include/c++/",
                 "-std=c++11",
                 "-g",
@@ -53,11 +49,15 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "detail": "Задача создана отладчиком."
+        },
+        {
+            "label" : "build",
+            "dependsOrder": "sequence",
+            "dependsOn" : [
+                "win64build",
+                "linuxbuild"
+            ]
         }
     ],
     "version": "2.0.0"

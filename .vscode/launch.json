@@ -4,8 +4,9 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+    
         {
-            "name": "g++ - Сборка и отладка активного файла",
+            "name": "build",
             "type": "cppdbg",
             "request": "launch",
             "program": "/home/leonid/Projects/Snake/bin/linux/Main.out",
@@ -22,7 +23,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: g++ сборка активного файла",
+            "preLaunchTask": "build",
             "miDebuggerPath": "/usr/bin/gdb"
         }
     ]

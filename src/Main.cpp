@@ -9,7 +9,6 @@
 #include <unistd.h>
 #define Sleep(x) usleep((x)*1000)
 #endif
-#include <thread>
 #include "Constants.hpp"
 
 using namespace std;
