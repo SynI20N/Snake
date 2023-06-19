@@ -1,0 +1,14 @@
+name: Build For platforms
+on: [push]
+
+jobs:
+  build:
+    strategy:
+
+      matrix:
+        platform: [windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: Run
+      run: /bin/windows/Snake.exe 
