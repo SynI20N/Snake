@@ -35,6 +35,5 @@ void Simulation::OnInput(GLFWwindow* window, int key, int scancode, int action, 
     {
         return;
     }
-    Vector2 newDirection = keyBindings.find(key)->second;
-    snake->ChangeDirection(newDirection);
+    snake->BufferInput(keyBindings.find(key)->second);
 }

@@ -1,5 +1,8 @@
 frameDelay= 10
-speed= 5.7
+speed= 6.7
 startDirection= {0, 1}
 startPosition= {8, 1}
-screenSettings= 800x800x20
+screenSettings= 1920x1080
+squareSize= 40
+keyBindings= {'65'=1} {'83'=4} {'87'=3} {'68'=2} {'262'=2} {'263'=1} {'264'=4} {'265'=3}
+ahahah

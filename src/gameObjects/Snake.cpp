@@ -1,9 +1,11 @@
 #include "Snake.hpp"
 #include <cstdlib>
 #include <cmath>
+#include <queue>
 #include <iostream>
 #include "Field.hpp"
 #include "../Constants.hpp"
+#define MAX_LENGTH 4
 
 using namespace std;
 
@@ -14,6 +16,8 @@ Vector2 headDirection = { 0, 0 };
 Position tail = Position(2, 0);
 Buffer* snakeBuffer;
 bool isTp = false;
+
+queue<Action> InputBuffer;
 
 Snake::Snake() {
 
@@ -96,6 +100,7 @@ void Snake::OnReached()
     snakeBuffer->Push(head, Color::white);
     snakeBuffer->Push(head, Color::blue);
 
+    ChangeDirection();
     DetectDirections(afterTailSquare.GetPosition(), tail);
 
     desiredHead[0] = head[0] + direction.x;
@@ -171,8 +176,30 @@ void Snake::TryEat(Food* food) {
     food->Reset();
 }
 
-void Snake::ChangeDirection(Vector2 newDirection) {
-    if (headDirection.x + newDirection.x == 0 && headDirection.y + newDirection.y == 0)
+void Snake::BufferInput(Action action) {
+    if(InputBuffer.size() < MAX_LENGTH)
+    {
+        InputBuffer.push(action);
+    }
+}
+
+void Snake::ChangeDirection() {
+    if(InputBuffer.size() == 0)
+    {
+        return;
+    }
+    Action action = InputBuffer.front();
+    InputBuffer.pop();
+    Vector2 newDirection = direction;
+    switch(action)
+    {
+        case Action::LEFT: newDirection = {-1, 0}; break;
+        case Action::RIGHT: newDirection = {1, 0}; break;
+        case Action::UP: newDirection = {0, -1}; break;
+        case Action::DOWN: newDirection = {0, 1}; break;
+        default: break;
+    }
+    if(headDirection.x + newDirection.x == 0 && headDirection.y + newDirection.y == 0)
     {
         return;
     }

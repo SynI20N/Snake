@@ -10,6 +10,13 @@ struct Vector2
     float y;
 };
 
+enum class Action {
+    NOTHING = 0,
+    LEFT = 1,
+    RIGHT = 2,
+    UP = 3,
+    DOWN = 4
+};
 class Field;
 class Snake: public Renderable{
     private:
@@ -28,7 +35,8 @@ class Snake: public Renderable{
         Snake();
         Snake(Position startPosition, Color startColor, Vector2 startDirection, Field* newField);
         void Move(float timeStep);
-        void ChangeDirection(Vector2 newDirection);
+        void BufferInput(Action action);
+        void ChangeDirection();
         void TryEat(Food* food);
         bool IsAlive();
 };
